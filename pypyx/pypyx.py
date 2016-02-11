@@ -28,6 +28,9 @@ class pic:
 			self.c = c
 			self.m = m
 
+		########################
+		### LINE STYLES
+
 		def dotted (self):
 			self.m.stroke_styles.append (
 					pyx.style.linestyle.dotted
@@ -40,9 +43,68 @@ class pic:
 				)
 			return self
 
+		########################
+		### COLOUR SELECTION
+
+		def colour_rgb (self, (r, g, b)):
+			self.m.common_styles.append (
+					pyx.color.rgb (r, g, b)
+				)
+			return self
+
+		### chroma is 'circular':
+		### 0.0 = red
+		### 1.0 = yellow
+		### 2.0 = green
+		### 3.0 = cyan
+		### 4.0 = blue
+		### 5.0 = magenta
+		### 6.0 = back to red
+		def colour_hue (self, chroma):
+			chroma = chroma % 6
+			if chroma < 0:
+				chroma += 6
+			self.m.common_styles.append (
+					pyx.color.hsb (chroma / 6, 1, 1)
+				)
+			return self
+
+		def colour_grey (self, value):
+			self.m.common_styles.append (
+					pyx.color.gray (value)
+				)
+			return self
+
+		########################
+		### NAMED COLOURS
+
+		def black (self):
+			self.m.common_styles.append (
+					pyx.color.rgb.black
+				)
+			return self
+
+		def dark_grey (self):
+			self.m.common_styles.append (
+					pyx.color.gray (1/4)
+				)
+			return self
+
+		def grey (self):
+			self.m.common_styles.append (
+					pyx.color.gray (1/2)
+				)
+			return self
+
 		def light_grey (self):
 			self.m.common_styles.append (
-					pyx.color.gray(2/3)
+					pyx.color.gray (3/4)
+				)
+			return self
+
+		def white (self):
+			self.m.common_styles.append (
+					pyx.color.rgb.white
 				)
 			return self
 
@@ -51,6 +113,52 @@ class pic:
 					pyx.color.rgb.red
 				)
 			return self
+
+		def orange (self):
+			self.m.common_styles.append (
+					pyx.color.rgb (1, 1/2, 0)
+				)
+			return self
+
+		def yellow (self):
+			self.m.common_styles.append (
+					pyx.color.rgb (1, 1, 0)
+				)
+			return self
+
+		def lime (self):
+			self.m.common_styles.append (
+					pyx.color.rgb (2/3, 1, 0)
+				)
+			return self
+
+		def green (self):
+			self.m.common_styles.append (
+					pyx.color.rgb.green
+				)
+			return self
+
+		### (turquoise)
+		def cyan (self):
+			self.m.common_styles.append (
+					pyx.color.rgb (0, 1, 1)
+				)
+			return self
+
+		def blue (self):
+			self.m.common_styles.append (
+					pyx.color.rgb.blue
+				)
+			return self
+
+		def magenta (self):
+			self.m.common_styles.append (
+					pyx.color.rgb (1, 0, 1)
+				)
+			return self
+
+		########################
+		### PAINT OPERATIONS
 
 		def text (self, (x, y), t):
 			c = self.c
@@ -90,6 +198,8 @@ class pic:
 				)
 			return self
 
+		########################
+
 	def __init__ (self, scale = 1.0):
 
 		self.scale = scale
@@ -97,10 +207,10 @@ class pic:
 
 	def op (self):
 
-		return self.ctx (self.c, self.mode(scale = self.scale))
+		return self.ctx (self.c, self.mode (scale = self.scale))
 
 	def output_pdf (self, name):
-		self.c.writePDFfile(name)
+		self.c.writePDFfile (name)
 
 		#c.writeEPSfile()
 		### c.writeSVGfile() not in this version of PyX
