@@ -1,13 +1,3 @@
-# PyPyX
-A friendlier Pythonic interface to PyX
-
-PyX is a wonderful library for drawing (mathematical) diagrams in Python; it has support for LaTeX.
-
-This is intended as a simpler interface to [PyX](http://pyx.sourceforge.net/), for simple line drawings.
-
-Example:
-
-```
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
@@ -36,6 +26,3 @@ p.op().line (x, xy)
 p.op().text ((r2/2, 1/2), 'A4')
 
 p.output_pdf ('Silly_A4_Paper_Example')
-```
-
-![Silly_A4_Paper_Example](/example/Silly_A4_Paper_Example.png)
