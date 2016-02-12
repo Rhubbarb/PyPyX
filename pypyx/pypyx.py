@@ -195,6 +195,9 @@ class pic:
 				styles.append (m.colour)
 			return styles
 
+		def point (self, p):
+			return self.line (p, p)
+
 		def line (self, (x1, y1), (x2, y2)):
 			c = self.c
 			m = self.m
