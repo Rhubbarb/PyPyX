@@ -114,9 +114,9 @@ class pic:
 			self.stroke_styles = [
 					pyx.style.linecap.round,
 				]
+			self.text_halign = pyx.text.halign.center
+			self.text_valign = pyx.text.valign.middle
 			self.text_styles = [
-					pyx.text.halign.center,
-					pyx.text.valign.middle,
 				]
 
 	class ctx:
@@ -177,6 +177,8 @@ class pic:
 					m.common_styles +
 					[
 						m.colour,
+						m.text_halign,
+						m.text_valign,
 					] +
 					m.text_styles
 				)
