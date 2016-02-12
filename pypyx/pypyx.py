@@ -5,6 +5,9 @@ from __future__ import division
 
 import pyx
 ### supports LaTeX!
+import pyx.metapost.path
+
+import math as maths
 
 class colour:
 
@@ -206,6 +209,51 @@ class pic:
 			c.draw (pyx.path.line (
 						x1 * s, y1 * s,
 						x2 * s, y2 * s
+					),
+					self.__stroke_styles()
+				)
+			return self
+
+		def curve (self, xys, start_angle = None, finish_angle = None):
+			c = self.c
+			m = self.m
+			s = m.scale
+
+			pathitems=[]
+
+			if len(xys) >= 2:
+				xy = xys[0]
+				(x, y) = xy
+				if start_angle == None:
+					startknot = pyx.metapost.path.beginknot (s * x, s * y)
+				else:
+					angle = 360 * start_angle / (2 * maths.pi)
+					startknot = pyx.metapost.path.beginknot (s * x, s * y, curl = None, angle = angle)
+				pathitems.append (startknot)
+
+			pathitems.append (pyx.metapost.path.curve())
+
+			for idx in xrange (1, len(xys) - 1):
+
+				xy = xys[idx]
+				(x, y) = xy
+				knot = pyx.metapost.path.knot (s * x, s * y)
+				pathitems.append (knot)
+
+				pathitems.append (pyx.metapost.path.curve())
+
+			if len(xys) >= 2:
+				xy = xys[-1]
+				(x, y) = xy
+				if finish_angle == None:
+					finishknot = pyx.metapost.path.endknot (s * x, s * y)
+				else:
+					angle = 360 * finish_angle / (2 * maths.pi)
+					finishknot = pyx.metapost.path.endknot (s * x, s * y, curl = None, angle = angle)
+				pathitems.append (finishknot)
+
+			c.draw (pyx.metapost.path.path (
+						pathitems
 					),
 					self.__stroke_styles()
 				)
