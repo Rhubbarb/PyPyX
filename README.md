@@ -13,7 +13,7 @@ Example:
 
 from __future__ import division
 import math as maths
-from pypyx.pypyx import pic
+from pypyx.pypyx import colour, pic
 
 p = pic (scale = 4.0)
 
@@ -24,11 +24,11 @@ x = (r2, 0)
 y = (0, 1)
 xy = (r2, 1)
 
-p.op().light_grey().circle ((r2/2, 1/2), maths.sqrt(3) / 2)
+p.op().colour(colour.light_grey()).circle ((r2/2, 1/2), maths.sqrt(3) / 2)
 
 p.op().dotted().line (o, x)
 p.op().line (o, y)
-p.op().dashed().red().line (y, xy)
+p.op().dashed().colour(colour.red()).line (y, xy)
 p.op().line (x, xy)
 
 p.op().text ((r2/2, 1/2), 'A4')
