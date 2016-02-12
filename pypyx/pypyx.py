@@ -184,7 +184,7 @@ class pic:
 				)
 			return self
 
-		def __stroke_styles__ (self):
+		def __stroke_styles (self):
 			m = self.m
 			styles = \
 					m.common_styles + \
@@ -204,7 +204,7 @@ class pic:
 						x1 * s, y1 * s,
 						x2 * s, y2 * s
 					),
-					self.__stroke_styles__()
+					self.__stroke_styles()
 				)
 			return self
 
@@ -216,7 +216,7 @@ class pic:
 						x * s, y * s,
 						r * s
 					),
-					self.__stroke_styles__()
+					self.__stroke_styles()
 				)
 			return self
 
