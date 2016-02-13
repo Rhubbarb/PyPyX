@@ -166,6 +166,31 @@ class pic:
 		def opaque (self, value):
 			return self.transparent (1 - value)
 
+		def to_left (self):
+			self.m.text_halign = pyx.text.halign.right
+			return self
+
+		def centre (self):
+			self.m.text_halign = pyx.text.halign.center
+			return self
+
+		def to_right (self):
+			self.m.text_halign = pyx.text.halign.left
+			return self
+
+		def above (self):
+			self.m.text_valign = pyx.text.valign.bottom
+			return self
+
+		def middle (self):
+			self.m.text_valign = pyx.text.valign.middle
+			return self
+
+		def below (self):
+			self.m.text_valign = pyx.text.valign.top
+			return self
+
+
 		########################
 		### PAINT OPERATIONS
 
