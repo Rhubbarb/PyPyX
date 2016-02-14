@@ -9,6 +9,20 @@ import pyx.metapost.path
 
 import math as maths
 
+class pypyx_maths:
+
+	@staticmethod
+	def degrees (d):
+		return (2 * maths.pi) * d / 360
+
+	@staticmethod
+	def gradient (g):
+		if type(g).__name__ == 'tuple':
+			(x, y) = g
+			return maths.atan2(y, x)
+		else:
+			return maths.atan(g)
+
 class colour:
 
 	########################
