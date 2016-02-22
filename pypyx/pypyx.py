@@ -131,6 +131,7 @@ class pic:
 			self.stroke_styles = [
 					pyx.style.linecap.round,
 				]
+			self.fill_rule = pyx.style.fillrule.nonzero_winding
 			self.path_closed = False
 
 			self.text_halign = pyx.text.halign.center
@@ -171,6 +172,14 @@ class pic:
 			self.m.stroke_styles.append (
 					pyx.deco.filled ([col])
 				)
+			return self
+
+		def nonzero_winding (self):
+			self.m.fill_rule = pyx.style.fillrule.nonzero_winding
+			return self
+
+		def parity_winding (self):
+			self.m.fill_rule = pyx.style.fillrule.even_odd
 			return self
 
 		def closed (self):
@@ -241,6 +250,7 @@ class pic:
 				#styles.append (pyx.deco.stroked([m.colour]))
 				styles.append (pyx.deco.stroked)
 				styles.append (m.colour)
+			styles.append (m.fill_rule)
 			return styles
 
 		def point (self, p):
