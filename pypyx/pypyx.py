@@ -259,6 +259,23 @@ class pic:
 				)
 			return self
 
+		def poly_line (self, xys):
+			c = self.c
+
+			p = pyx.path.path()
+
+			(x, y) = xys[0]
+			p.append (pyx.path.moveto (x, y))
+
+			for idx in xrange (1, len(xys)):
+				(x, y) = xys[idx]
+				p.append (pyx.path.lineto (x, y))
+
+			c.draw (p,
+					self.__stroke_styles()
+				)
+			return self
+
 		def __open_smooth_poly_curve (self, xys, start_angle = None, finish_angle = None):
 			c = self.c
 			m = self.m
