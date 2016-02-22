@@ -253,7 +253,7 @@ class pic:
 				)
 			return self
 
-		def curve (self, xys, start_angle = None, finish_angle = None):
+		def __open_smooth_poly_curve (self, xys, start_angle = None, finish_angle = None):
 			c = self.c
 			m = self.m
 			s = m.scale
@@ -296,6 +296,10 @@ class pic:
 					),
 					self.__stroke_styles()
 				)
+			return self
+
+		def smooth_poly_curve (self, xys, start_angle = None, finish_angle = None):
+			self.__open_smooth_poly_curve (xys, start_angle = start_angle, finish_angle = finish_angle)
 			return self
 
 		def circle (self, (x, y), r):
