@@ -131,6 +131,8 @@ class pic:
 			self.stroke_styles = [
 					pyx.style.linecap.round,
 				]
+			self.path_closed = False
+
 			self.text_halign = pyx.text.halign.center
 			self.text_valign = pyx.text.valign.middle
 			self.text_styles = [
@@ -169,6 +171,10 @@ class pic:
 			self.m.stroke_styles.append (
 					pyx.deco.filled ([col])
 				)
+			return self
+
+		def closed (self):
+			self.m.path_closed = True
 			return self
 
 		def transparent (self, value):
@@ -298,8 +304,36 @@ class pic:
 				)
 			return self
 
+		def __closed_smooth_poly_curve (self, xys):
+			c = self.c
+			m = self.m
+			s = m.scale
+
+			pathitems=[]
+
+			for idx in xrange (0, len(xys)):
+
+				xy = xys[idx]
+				(x, y) = xy
+				knot = pyx.metapost.path.knot (s * x, s * y)
+				pathitems.append (knot)
+
+				pathitems.append (pyx.metapost.path.curve())
+
+			c.draw (pyx.metapost.path.path (
+						pathitems
+					),
+					self.__stroke_styles()
+				)
+			return self
+
 		def smooth_poly_curve (self, xys, start_angle = None, finish_angle = None):
-			self.__open_smooth_poly_curve (xys, start_angle = start_angle, finish_angle = finish_angle)
+			m = self.m
+
+			if m.path_closed:
+				self.__closed_smooth_poly_curve (xys)
+			else:
+				self.__open_smooth_poly_curve (xys, start_angle = start_angle, finish_angle = finish_angle)
 			return self
 
 		def circle (self, (x, y), r):
