@@ -261,6 +261,7 @@ class pic:
 
 		def poly_line (self, xys):
 			c = self.c
+			m = self.m
 
 			p = pyx.path.path()
 
@@ -270,6 +271,9 @@ class pic:
 			for idx in xrange (1, len(xys)):
 				(x, y) = xys[idx]
 				p.append (pyx.path.lineto (x, y))
+
+			if m.path_closed:
+				p.append (pyx.path.closepath())
 
 			c.draw (p,
 					self.__stroke_styles()
