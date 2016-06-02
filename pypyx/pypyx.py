@@ -23,6 +23,11 @@ class pypyx_maths:
 		else:
 			return maths.atan(g)
 
+	@staticmethod
+	def hypot ((x, y)):
+		#return maths.sqrt (x^2 + y^2)
+		return maths.sqrt (x*x + y*y)
+
 class colour:
 
 	########################
