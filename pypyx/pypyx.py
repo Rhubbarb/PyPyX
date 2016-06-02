@@ -119,6 +119,32 @@ class colour:
 	def purple ():
 		return pyx.color.rgb (1/2, 0, 1/2)
 
+	########################
+
+	@staticmethod
+	def colour_from_string (name):
+		col = None
+
+		if name == 'black': col = colour.black()
+		elif name == 'blue': col = colour.blue()
+		elif name == 'brown': col = colour.brown()
+		elif name == 'cyan': col = colour.cyan()
+		elif name == 'green': col = colour.green()
+		elif name == 'grey(dark)': col = colour.dark_grey()
+		elif name == 'grey(light)': col = colour.light_grey()
+		elif name == 'grey(mid)' or name == 'grey': col = colour.mid_grey()
+		elif name == 'lime': col = colour.lime()
+		elif name == 'magenta': col = colour.magenta()
+		elif name == 'orange': col = colour.orange()
+		elif name == 'pink': col = colour.pink()
+		elif name == 'purple': col = colour.purple()
+		elif name == 'red': col = colour.red()
+		elif name == 'white': col = colour.white()
+		elif name == 'yellow': col = colour.yellow()
+		else:
+			raise exceptions.BaseException ('Error: unknown colour name "' + name + '"')
+		return col
+
 class pic:
 
 	class mode:
@@ -164,8 +190,19 @@ class pic:
 			self.m.colour = None;
 			return self
 
-		def colour (self, col):
-			self.m.colour = col;
+		def stroked (self, col):
+			if type(col).__name__ == 'str':
+				self.m.colour = colour.colour_from_string (col)
+			elif type(col).__name__ == 'instance':
+				if col.__class__.__module__ == 'pyx.color':
+					self.m.colour = col
+				else:
+					#print col.__class__
+					#print col.__class__.__module__
+					#print col.__class__.__name__
+					raise exceptions.BaseException ('Error: unsupported class "' + col.__class__.__module__ + '"')
+			else:
+				raise exceptions.BaseException ('Error: unsupported type "' + type(col).__name__ + '"')
 			return self
 
 		def filled (self, col):
@@ -219,6 +256,33 @@ class pic:
 			self.m.text_valign = pyx.text.valign.top
 			return self
 
+		def styled (self, desc):
+
+			words = desc.lower().split(' ')
+			for word in words:
+				if word == '': pass
+				elif word == 'black': self.stroked(colour.black())
+				elif word == 'blue': self.stroked(colour.blue())
+				elif word == 'brown': self.stroked(colour.brown())
+				elif word == 'cyan': self.stroked(colour.cyan())
+				elif word == 'dashed': self.dashed()
+				elif word == 'dotted': self.dotted()
+				elif word == 'green': self.stroked(colour.green())
+				elif word == 'grey(dark)': self.stroked(colour.dark_grey())
+				elif word == 'grey(light)': self.stroked(colour.light_grey())
+				elif word == 'grey(mid)' or word == 'grey': self.stroked(colour.mid_grey())
+				elif word == 'lime': self.stroked(colour.lime())
+				elif word == 'magenta': self.stroked(colour.magenta())
+				elif word == 'orange': self.stroked(colour.orange())
+				elif word == 'pink': self.stroked(colour.pink())
+				elif word == 'purple': self.stroked(colour.purple())
+				elif word == 'red': self.stroked(colour.red())
+				elif word == 'white': self.stroked(colour.white())
+				elif word == 'yellow': self.stroked(colour.yellow())
+				else:
+					raise exceptions.BaseException ('Error: unknown word "' + word + '"')
+
+			return self
 
 		########################
 		### PAINT OPERATIONS
