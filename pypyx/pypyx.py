@@ -49,7 +49,7 @@ class colour:
 
 	@staticmethod
 	def grey (value = 0.5):
-		return pyx.color.gray (value)
+		return pyx.color.grey (value)
 
 	########################
 	### NAMED COLOURS
@@ -272,15 +272,16 @@ class pic:
 		def poly_line (self, xys):
 			c = self.c
 			m = self.m
+			s = m.scale
 
 			p = pyx.path.path()
 
 			(x, y) = xys[0]
-			p.append (pyx.path.moveto (x, y))
+			p.append (pyx.path.moveto (s * x, s * y))
 
 			for idx in xrange (1, len(xys)):
 				(x, y) = xys[idx]
-				p.append (pyx.path.lineto (x, y))
+				p.append (pyx.path.lineto (s * x, s * y))
 
 			if m.path_closed:
 				p.append (pyx.path.closepath())
@@ -333,7 +334,7 @@ class pic:
 					),
 					self.__stroke_styles()
 				)
-			return self
+			#return self
 
 		def __closed_smooth_poly_curve (self, xys):
 			c = self.c
@@ -356,7 +357,7 @@ class pic:
 					),
 					self.__stroke_styles()
 				)
-			return self
+			#return self
 
 		def smooth_poly_curve (self, xys, start_angle = None, finish_angle = None):
 			m = self.m
@@ -371,6 +372,7 @@ class pic:
 			c = self.c
 			m = self.m
 			s = m.scale
+
 			c.draw (pyx.path.circle (
 						x * s, y * s,
 						r * s
@@ -380,6 +382,8 @@ class pic:
 			return self
 
 		########################
+
+	########################
 
 	def __init__ (self, scale = 1.0):
 
