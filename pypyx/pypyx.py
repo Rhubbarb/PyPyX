@@ -269,6 +269,27 @@ class pic:
 				)
 			return self
 
+		def curve (self, (x1, y1), (cx2, cy2), (cx3, cy3), (x4, y4)):
+			c = self.c
+			m = self.m
+			s = m.scale
+
+			c.draw (pyx.metapost.path.path ([
+						pyx.metapost.path.knot (
+								s * x1, s * y1
+							),
+						pyx.metapost.path.controlcurve (
+								(s * cx2, s * cy2),
+								(s * cx3, s * cy3)
+							),
+						pyx.metapost.path.knot (
+								s * x4, s * y4
+							),
+					]),
+					self.__stroke_styles()
+				)
+			return self
+
 		def poly_line (self, xys):
 			c = self.c
 			m = self.m
