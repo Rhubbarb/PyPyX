@@ -37,7 +37,7 @@ p.op().to_left().text ((-tick, 1), r'$1$')
 p.op().line ((-tick, -1), (0, -1))
 p.op().to_left().text ((-tick, -1), r'$-1$')
 
-p.op().colour(colour.green()).smooth_poly_curve (
+p.op().stroked(colour.green()).smooth_poly_curve (
 		[
 			(0, 0),
 			(tau/4, 1),
@@ -46,7 +46,7 @@ p.op().colour(colour.green()).smooth_poly_curve (
 		finish_angle = deg(0)
 	)
 
-p.op().colour(colour.green()).smooth_poly_curve (
+p.op().stroked(colour.green()).smooth_poly_curve (
 		[
 			(tau/4, 1),
 			(tau/2, 0),
@@ -55,7 +55,7 @@ p.op().colour(colour.green()).smooth_poly_curve (
 		finish_angle = deg(-45)
 	)
 
-p.op().colour(colour.red()).smooth_poly_curve (
+p.op().stroked(colour.red()).smooth_poly_curve (
 		[
 			(tau/2, 0),
 			(3*tau/4, -1),
@@ -65,7 +65,7 @@ p.op().colour(colour.red()).smooth_poly_curve (
 		finish_angle = deg(45)
 	)
 
-#p.op().dashed().colour(colour.pink()).curve (
+#p.op().dashed().stroked(colour.pink()).curve (
 #		[
 #			(0, 0),
 #			(tau/4, 1),

@@ -25,11 +25,11 @@ x = (r2, 0)
 y = (0, 1)
 xy = (r2, 1)
 
-p.op().colour(colour.light_grey()).circle ((r2/2, 1/2), maths.sqrt(3) / 2)
+p.op().stroked(colour.light_grey()).circle ((r2/2, 1/2), maths.sqrt(3) / 2)
 
 p.op().dotted().line (o, x)
-p.op().line (o, y)
-p.op().dashed().colour(colour.red()).line (y, xy)
+p.op().stroked('blue').line (o, y)
+p.op().styled('dashed red').line (y, xy)
 p.op().line (x, xy)
 
 p.op().text ((r2/2, 1/2), 'A4')
@@ -81,7 +81,7 @@ p.op().to_left().text ((-tick, 1), r'$1$')
 p.op().line ((-tick, -1), (0, -1))
 p.op().to_left().text ((-tick, -1), r'$-1$')
 
-p.op().colour(colour.green()).smooth_poly_curve (
+p.op().stroked(colour.green()).smooth_poly_curve (
 		[
 			(0, 0),
 			(tau/4, 1),
@@ -90,7 +90,7 @@ p.op().colour(colour.green()).smooth_poly_curve (
 		finish_angle = deg(0)
 	)
 
-p.op().colour(colour.green()).smooth_poly_curve (
+p.op().stroked(colour.green()).smooth_poly_curve (
 		[
 			(tau/4, 1),
 			(tau/2, 0),
@@ -99,7 +99,7 @@ p.op().colour(colour.green()).smooth_poly_curve (
 		finish_angle = deg(-45)
 	)
 
-p.op().colour(colour.red()).smooth_poly_curve (
+p.op().stroked(colour.red()).smooth_poly_curve (
 		[
 			(tau/2, 0),
 			(3*tau/4, -1),

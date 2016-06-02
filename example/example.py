@@ -15,11 +15,11 @@ x = (r2, 0)
 y = (0, 1)
 xy = (r2, 1)
 
-p.op().colour(colour.light_grey()).circle ((r2/2, 1/2), maths.sqrt(3) / 2)
+p.op().stroked(colour.light_grey()).circle ((r2/2, 1/2), maths.sqrt(3) / 2)
 
 p.op().dotted().line (o, x)
-p.op().line (o, y)
-p.op().dashed().colour(colour.red()).line (y, xy)
+p.op().stroked('blue').line (o, y)
+p.op().styled('dashed red').line (y, xy)
 p.op().line (x, xy)
 
 p.op().text ((r2/2, 1/2), 'A4')
