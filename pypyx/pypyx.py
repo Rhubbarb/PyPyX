@@ -338,6 +338,98 @@ class pic:
 				)
 			return self
 
+		def __circular_arc_pyx_arc (self, (c_x, c_y), (s_x, s_y), a):
+			c = self.c
+			m = self.m
+			s = m.scale
+
+			r = pypyx_maths.hypot ((s_x, s_y))
+			s_a = pypyx_maths.gradient ((s_x, s_y))
+			f_a = s_a + a
+
+			### possible PyX bug with arc() & writePDFfile()
+			c.draw (pyx.path.arc (
+						c_x * s, c_y * s,
+						r * s,
+						s_a, f_a
+					),
+					self.__stroke_styles()
+				)
+			return self
+
+		def __circular_arc_spline_approx (self, (c_x, c_y), (s_x, s_y), a):
+			c = self.c
+			m = self.m
+			s = m.scale
+
+			d_x = s_x - c_x
+			d_y = s_y - c_y
+
+			r = pypyx_maths.hypot ((d_x, d_y))
+			s_a = pypyx_maths.gradient ((d_x, d_y))
+
+			### split the arc into n sections
+			n_max = 4
+			n = int (0.5 + maths.ceil (n_max * a / (2 * maths.pi)))
+
+			if (n == 0):
+				return self
+
+			### calculate spline control parameters
+			a_sec = a / n
+			k = (4/3) * ((1 - maths.cos(a_sec/2)) / maths.sin(a_sec/2))
+			d = r * maths.sqrt (1 + k*k)
+			a_d = maths.atan (k)
+
+			### the maximum radial error in a quarter-circle
+			### is < 0.03% (i.e. < 0.0003)
+
+			path = []
+
+			path.append (
+					pyx.metapost.path.knot (
+							s * s_x, s * s_y
+							#s * (c_x + d_x), s * (c_y + d_x)
+						)
+				)
+
+			for i in xrange (n):
+
+				j = i + 1
+
+				p0_a = s_a + i * a_sec
+				p3_a = s_a + j * a_sec
+				c1_a = p0_a + a_d
+				c2_a = p3_a - a_d
+
+				#p0_x = c_x + r * maths.cos(p0_a)
+				#p0_y = c_y + r * maths.sin(p0_a)
+				c1_x = c_x + d * maths.cos(c1_a)
+				c1_y = c_y + d * maths.sin(c1_a)
+				c2_x = c_x + d * maths.cos(c2_a)
+				c2_y = c_y + d * maths.sin(c2_a)
+				p3_x = c_x + r * maths.cos(p3_a)
+				p3_y = c_y + r * maths.sin(p3_a)
+
+				path.append ( pyx.metapost.path.controlcurve (
+						(s * c1_x, s * c1_y),
+						(s * c2_x, s * c2_y)
+					))
+
+				path.append ( pyx.metapost.path.knot (s * p3_x, s * p3_y) )
+
+			c.draw (pyx.metapost.path.path (path),
+					self.__stroke_styles()
+				)
+			return self
+
+		def circular_arc (self, c, s, a):
+			self.__circular_arc_spline_approx (c, s, a)
+			return self
+
+		def arc (self, c, s, a):
+			return self.circular_arc (c, s, a)
+
 		def curve (self, (x1, y1), (cx2, cy2), (cx3, cy3), (x4, y4)):
 			c = self.c
 			m = self.m
@@ -467,6 +559,64 @@ class pic:
 						x * s, y * s,
 						r * s
 					),
+					self.__stroke_styles()
+				)
+			return self
+
+		def ellipse (self, (c_x, c_y), major, minor, angle):
+			c = self.c
+			m = self.m
+			s = m.scale
+
+			### approximation
+			mj_x = major * maths.cos (angle)
+			mj_y = major * maths.sin (angle)
+			mn_x = minor * -maths.sin (angle)
+			mn_y = minor * maths.cos (angle)
+
+			### special constant for close approximation
+			### to circle/conic quadrant
+			k = (4/3) * (maths.sqrt(2) - 1)
+
+			c.draw (pyx.metapost.path.path ([
+						pyx.metapost.path.knot (
+								### +ve major
+								s * (c_x + mj_x), s * (c_y + mj_y)
+							),
+						pyx.metapost.path.controlcurve (
+								### 1st quadrant
+								(s * (c_x + mj_x + k*mn_x), s * (c_y + mj_y + k*mn_y)),
+								(s * (c_x + mn_x + k*mj_x), s * (c_y + mn_y + k*mj_y))
+							),
+						pyx.metapost.path.knot (
+								### +ve minor
+								s * (c_x + mn_x), s * (c_y + mn_y)
+							),
+						pyx.metapost.path.controlcurve (
+								### 2nd quadrant
+								(s * (c_x + mn_x - k*mj_x), s * (c_y + mn_y - k*mj_y)),
+								(s * (c_x - mj_x + k*mn_x), s * (c_y - mj_y + k*mn_y))
+							),
+						pyx.metapost.path.knot (
+								### -ve major
+								s * (c_x - mj_x), s * (c_y - mj_y)
+							),
+						pyx.metapost.path.controlcurve (
+								### 3rd quadrant
+								(s * (c_x - mj_x - k*mn_x), s * (c_y - mj_y - k*mn_y)),
+								(s * (c_x - mn_x - k*mj_x), s * (c_y - mn_y - k*mj_y))
+							),
+						pyx.metapost.path.knot (
+								### -ve minor
+								s * (c_x - mn_x), s * (c_y - mn_y)
+							),
+						pyx.metapost.path.controlcurve (
+								### 4th quadrant
+								(s * (c_x - mn_x + k*mj_x), s * (c_y - mn_y + k*mj_y)),
+								(s * (c_x + mj_x - k*mn_x), s * (c_y + mj_y - k*mn_y))
+							),
+						### and close back to +ve major by default
+					]),
 					self.__stroke_styles()
 				)
 			return self
