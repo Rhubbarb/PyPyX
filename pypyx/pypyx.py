@@ -169,6 +169,7 @@ class pic:
 
 			self.text_halign = pyx.text.halign.center
 			self.text_valign = pyx.text.valign.middle
+			self.text_size = 0 ### -4 to +5
 			self.text_styles = [
 				]
 
@@ -239,6 +240,10 @@ class pic:
 		def opaque (self, value):
 			return self.transparent (1 - value)
 
+		def text_size (self, n):
+			self.m.text_size = n
+			return self
+
 		def to_left (self):
 			self.m.text_halign = pyx.text.halign.right
 			return self
@@ -305,6 +310,7 @@ class pic:
 					m.common_styles +
 					[
 						m.colour,
+						pyx.text.size(m.text_size),
 						m.text_halign,
 						m.text_valign,
 					] +
