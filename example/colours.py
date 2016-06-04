@@ -16,37 +16,37 @@ def pos ():
 	x += 1
 	return (0, x)
 
-p.op().colour(colour.red()).text (pos(), 'red')
-p.op().colour(colour.orange()).text (pos(), 'orange')
-p.op().colour(colour.yellow()).text (pos(), 'yellow')
-p.op().colour(colour.lime()).text (pos(),'lime')
-p.op().colour(colour.green()).text (pos(), 'green')
-p.op().colour(colour.cyan()).text (pos(), 'cyan')
-p.op().colour(colour.blue()).text (pos(), 'blue')
-p.op().colour(colour.magenta()).text (pos(), 'magenta')
-p.op().colour(colour.white()).text (pos(), 'white')
-p.op().colour(colour.black()).text (pos(), 'black')
+p.op().stroked(colour.red()).text (pos(), 'red')
+p.op().stroked(colour.orange()).text (pos(), 'orange')
+p.op().stroked(colour.yellow()).text (pos(), 'yellow')
+p.op().stroked(colour.lime()).text (pos(),'lime')
+p.op().stroked(colour.green()).text (pos(), 'green')
+p.op().stroked(colour.cyan()).text (pos(), 'cyan')
+p.op().stroked(colour.blue()).text (pos(), 'blue')
+p.op().stroked(colour.magenta()).text (pos(), 'magenta')
+p.op().stroked(colour.white()).text (pos(), 'white')
+p.op().stroked(colour.black()).text (pos(), 'black')
 
-p.op().colour(colour.purple()).text (pos(), 'purple')
-p.op().colour(colour.brown()).text (pos(), 'brown')
-p.op().colour(colour.pink()).text (pos(), 'pink')
+p.op().stroked(colour.purple()).text (pos(), 'purple')
+p.op().stroked(colour.brown()).text (pos(), 'brown')
+p.op().stroked(colour.pink()).text (pos(), 'pink')
 
-p.op().colour(colour.dark_grey()).text (pos(), 'dark grey')
-p.op().colour(colour.grey()).text (pos(), 'grey')
-p.op().colour(colour.mid_grey()).text (pos(), 'mid-grey')
-p.op().colour(colour.light_grey()).text (pos(), 'light grey')
-p.op().colour(colour.black()).text (pos(), 'black')
-p.op().colour(colour.rgb((.9,.7,.5))).text (pos(), 'rgb')
+p.op().stroked(colour.dark_grey()).text (pos(), 'dark grey')
+p.op().stroked(colour.grey()).text (pos(), 'grey')
+p.op().stroked(colour.mid_grey()).text (pos(), 'mid-grey')
+p.op().stroked(colour.light_grey()).text (pos(), 'light grey')
+p.op().stroked(colour.black()).text (pos(), 'black')
+p.op().stroked(colour.rgb((.9,.7,.5))).text (pos(), 'rgb')
 
 #for i in xrange (-24, 25):
 #for i in xrange (0, 25):
 #	h = i / 4
 #	text = 'hue=' + str(h)
-#	p.op().colour(colour.hue(h)).text (pos(), text)
+#	p.op().stroked(colour.hue(h)).text (pos(), text)
 
 #for i in xrange (0, 11):
 #	v = i / 10
 #	text = 'grey=' + str(v)
-#	p.op().colour(colour.grey(v)).text (pos(), text)
+#	p.op().stroked(colour.grey(v)).text (pos(), text)
 
 p.output_pdf (os.path.splitext(__file__)[0])
