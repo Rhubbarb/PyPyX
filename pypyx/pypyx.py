@@ -11,9 +11,11 @@ import math as maths
 
 class pypyx_maths:
 
+	tau = 2 * maths.pi
+
 	@staticmethod
 	def degrees (d):
-		return (2 * maths.pi) * d / 360
+		return tau * d / 360
 
 	@staticmethod
 	def gradient (g):
@@ -369,8 +371,10 @@ class pic:
 			s_a = pypyx_maths.gradient ((d_x, d_y))
 
 			### split the arc into n sections
-			n_max = 4
-			n = int (0.5 + maths.ceil (n_max * a / (2 * maths.pi)))
+			#n_max = 4
+			#n = int (0.5 + maths.ceil (n_max * a / pypyx_maths.tau))
+			a_sec_max = pypyx_maths.tau / 4
+			n = int (0.5 + maths.ceil (a / a_sec_max))
 
 			if (n == 0):
 				return self
@@ -486,7 +490,7 @@ class pic:
 				if start_angle == None:
 					startknot = pyx.metapost.path.beginknot (s * x, s * y)
 				else:
-					angle = 360 * start_angle / (2 * maths.pi)
+					angle = 360 * start_angle / pypyx_maths.tau
 					startknot = pyx.metapost.path.beginknot (s * x, s * y, curl = None, angle = angle)
 				pathitems.append (startknot)
 
@@ -507,7 +511,7 @@ class pic:
 				if finish_angle == None:
 					finishknot = pyx.metapost.path.endknot (s * x, s * y)
 				else:
-					angle = 360 * finish_angle / (2 * maths.pi)
+					angle = 360 * finish_angle / pypyx_maths.tau
 					finishknot = pyx.metapost.path.endknot (s * x, s * y, curl = None, angle = angle)
 				pathitems.append (finishknot)
 
