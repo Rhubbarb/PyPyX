@@ -4,6 +4,7 @@
 from __future__ import division
 
 import math as maths
+import os
 from pypyx.pypyx import colour, pic
 
 p = pic (scale = 4.0)
@@ -24,4 +25,4 @@ p.op().line (x, xy)
 
 p.op().text ((r2/2, 1/2), 'A4')
 
-p.output_pdf ('Silly_A4_Paper_Example')
+p.output_pdf (os.path.splitext(__file__)[0])

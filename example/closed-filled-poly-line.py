@@ -4,6 +4,7 @@
 from __future__ import division
 
 import math as maths
+import os
 from pypyx.pypyx import colour, pic
 
 p = pic (scale = 1)
@@ -26,4 +27,4 @@ p.op().parity_winding().filled(colour.grey(0.5)).closed().poly_line (
 		pts
 	)
 
-p.output_pdf('pentagram')
+p.output_pdf (os.path.splitext(__file__)[0])

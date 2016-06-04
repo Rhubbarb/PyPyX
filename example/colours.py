@@ -4,6 +4,7 @@
 from __future__ import division
 
 import math as maths
+import os
 from pypyx.pypyx import colour, pic
 
 p = pic (scale = .15)
@@ -48,4 +49,4 @@ p.op().colour(colour.rgb((.9,.7,.5))).text (pos(), 'rgb')
 #	text = 'grey=' + str(v)
 #	p.op().colour(colour.grey(v)).text (pos(), text)
 
-p.output_pdf('colours')
+p.output_pdf (os.path.splitext(__file__)[0])

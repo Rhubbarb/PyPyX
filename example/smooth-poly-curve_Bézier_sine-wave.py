@@ -4,6 +4,7 @@
 from __future__ import division
 
 import math as maths
+import os
 from pypyx.pypyx import colour, pic
 
 def deg (d):
@@ -77,4 +78,4 @@ p.op().stroked(colour.red()).smooth_poly_curve (
 #		finish_angle = deg(-45)
 #	)
 
-p.output_pdf('sine-curve')
+p.output_pdf (os.path.splitext(__file__)[0])

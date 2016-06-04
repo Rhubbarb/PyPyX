@@ -4,6 +4,7 @@
 from __future__ import division
 
 import math as maths
+import os
 from pypyx.pypyx import colour, pic
 
 def deg (d):
@@ -33,4 +34,4 @@ p.op().closed().smooth_poly_curve (
 		]
 	)
 
-p.output_pdf('loop')
+p.output_pdf (os.path.splitext(__file__)[0])

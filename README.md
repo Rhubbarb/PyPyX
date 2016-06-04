@@ -34,10 +34,10 @@ p.op().line (x, xy)
 
 p.op().text ((r2/2, 1/2), 'A4')
 
-p.output_pdf ('Silly_A4_Paper_Example')
+p.output_pdf ('line_circle_text')
 ```
 
-![Silly A4 Paper Example](/example/Silly_A4_Paper_Example.png)
+![simple example](/example/line_circle_text.png)
 
 Example Two — Bézier Curves:
 
@@ -109,8 +109,8 @@ p.op().stroked(colour.red()).smooth_poly_curve (
 		finish_angle = deg(45)
 	)
 
-p.output_pdf('sine-curve')
+p.output_pdf('smooth-poly-curve_Bézier_sine-wave')
 ```
 
-![sine curve](/example/sine-curve.png)
+![sine wave plot](/example/smooth-poly-curve_Bézier_sine-wave.png)
 
