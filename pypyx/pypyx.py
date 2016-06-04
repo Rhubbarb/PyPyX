@@ -15,7 +15,7 @@ class pypyx_maths:
 
 	@staticmethod
 	def degrees (d):
-		return tau * d / 360
+		return pypyx_maths.tau * d / 360
 
 	@staticmethod
 	def gradient (g):
