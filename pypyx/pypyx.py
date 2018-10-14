@@ -276,6 +276,15 @@ class pic:
 			self.m.text_halign = pyx.text.halign.left
 			return self
 
+		def to_side (self, direction):
+			if direction < 0:
+				self.to_left()
+			elif direction > 0:
+				self.to_right()
+			else:
+				self.centre()
+			return self
+
 		def above (self):
 			self.m.text_valign = pyx.text.valign.bottom
 			return self
@@ -286,6 +295,15 @@ class pic:
 
 		def below (self):
 			self.m.text_valign = pyx.text.valign.top
+			return self
+
+		def to_level (self, direction):
+			if direction < 0:
+				self.below()
+			elif direction > 0:
+				self.above()
+			else:
+				self.middle()
 			return self
 
 		def styled (self, desc):
