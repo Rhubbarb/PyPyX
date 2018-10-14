@@ -228,6 +228,17 @@ class pic:
 				)
 			return self
 
+		def arrow_head (self, direction=+1):
+			if direction < 0:
+				self.m.stroke_styles.append (
+						pyx.deco.barrow()
+					)
+			elif direction > 0:
+				self.m.stroke_styles.append (
+						pyx.deco.earrow()
+					)
+			return self
+
 		def nonzero_winding (self):
 			self.m.fill_rule = pyx.style.fillrule.nonzero_winding
 			return self
