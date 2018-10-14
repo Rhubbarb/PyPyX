@@ -213,6 +213,10 @@ class pic:
 				raise exceptions.BaseException ('Error: unsupported type "' + type(col).__name__ + '"')
 			return self
 
+		def thickness (self, points):
+			raise exceptions.BaseException ('not implemented')
+			return self
+
 		def filled (self, col):
 			if type(col).__name__ == 'str':
 				fcol = colour.colour_from_string (col)
