@@ -422,7 +422,7 @@ class pic:
 			#n_max = 4
 			#n = int (0.5 + maths.ceil (n_max * a / pypyx_maths.tau))
 			a_sec_max = pypyx_maths.tau / 4
-			n = int (0.5 + maths.ceil (a / a_sec_max))
+			n = int (0.5 + maths.ceil (abs (a) / a_sec_max))
 
 			if (n == 0):
 				return self
