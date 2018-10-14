@@ -214,8 +214,17 @@ class pic:
 			return self
 
 		def filled (self, col):
+			if type(col).__name__ == 'str':
+				fcol = colour.colour_from_string (col)
+			elif type(col).__name__ == 'instance':
+				if col.__class__.__module__ == 'pyx.color':
+					fcol = col
+				else:
+					raise exceptions.BaseException ('Error: unsupported class "' + col.__class__.__module__ + '"')
+			else:
+				raise exceptions.BaseException ('Error: unsupported type "' + type(col).__name__ + '"')
 			self.m.stroke_styles.append (
-					pyx.deco.filled ([col])
+					pyx.deco.filled ([fcol])
 				)
 			return self
 
