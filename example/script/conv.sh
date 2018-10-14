@@ -9,7 +9,7 @@ fn="$1"
 
 convert \
 		-units PixelsPerInch \
-		-density 90 \
+		-density 180 \
 		-alpha activate \
 		-antialias \
 		"${fn}.pdf" \
@@ -19,5 +19,7 @@ convert \
 		-flatten \
 		"${fn}_trans.png" \
 		"${fn}.png"
+
+rm "${fn}_trans.png"
 
 fi
